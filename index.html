@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <form action="" style="margin-left: 200px;">
+        <h1>Form đăng ký</h1>
+        <div>
+            <label for="name">
+                Name
+                <input type="text" id="name" onkeyup="validateName()" placeholder="Vui lòng nhập tên">
+            </label>
+            <span class="error" id="error_name"></span>
+        </div>
+
+        <div>
+            <label for="email">
+                Email
+                <input type="email" id="email" onkeyup="validateEmail()" placeholder="Vui lòng nhập email">
+            </label>
+            <span class="error" id="error_email"></span>
+        </div>
+
+        <div>
+            <label for="dob">
+                Ngày sinh
+                <input type="date" id="dob" onchange="validateDob()">
+            </label>
+            <span class="error" id="error_dob"></span>
+        </div>
+
+        <div>
+            <label for="city">
+                Quê quán
+                <select name="city" id="city" onchange="validateCity()">
+                    <option value="">Chọn đi bạn ơi</option>
+                    <option value="hochiminh">TP HCM</option>
+                    <option value="hanoi">Hà Nội</option>
+                    <option value="quangninh">Quảng Ninh</option>
+                    <option value="camau">Cà Mau</option>
+                </select>
+            </label>
+            <span class="error" id="error_city"></span>
+        </div>
+
+        <div>
+            <label for="">
+                Học vấn
+                <input type="radio" name="education" value="thpt" onclick="validateEnducation()">THPT
+            </label>
+            <label for="">
+                <input type="radio" name="education" value="caodang" onclick="validateEnducation()">Cao đẳng
+            </label>
+            <label for="">
+                <input type="radio" name="education" value="daihoc" onclick="validateEnducation()">Đại học
+            </label>
+            <span class="error" id="error_education"></span>
+        </div>
+
+        <div>
+            <label for="introduction">
+                Giới thiệu
+                <textarea name="" id="introduction" cols="30" rows="4" placeholder="Vui lòng nhập giới thiệu" onkeyup="validateIntroduction()"></textarea>
+            </label>
+            <span class="error" id="error_introduction"></span>
+        </div>
+
+        <div>
+            <input type="submit" onclick="return validateForm()"></input>
+        </div>
+
+        <h1 id="result"></h1>
+    </form>
+</body>
+</html>
+
+<style>
+    div {
+        margin: 10px;
+    }
+    .error {
+        color: red;
+    }
+</style>
+
+<script>
+    function validateName(){
+        let name = document.getElementById('name');
+        var errorName = document.getElementById('error_name');
+        if(name.value.length == 0){
+            errorName.innerHTML = "Vui lòng nhập tên của bạn";
+            return false;
+        }
+        else if(name.value.length < 5){
+            errorName.innerHTML = "Bạn phải nhập tên trên 5 ký tự";
+            return false;
+        }
+        else {
+            errorName.innerHTML = '';
+            return true;
+        }
+    }
+
+    function validateEmail(){
+        let email = document.getElementById('email');
+        var errorEmail = document.getElementById('error_email');
+        if(email.value.length == 0){
+            errorEmail.innerHTML = "Vui lòng nhập email của bạn";
+            return false;
+        }
+        if(validateEmailValid(email.value)){
+            errorEmail.innerHTML = '';
+            return true;
+        }
+        else {
+            
+            errorEmail.innerHTML = "Bạn phải nhập đúng định dạng email";
+            return false;
+        }
+    }
+
+    function validateEmailValid(email) {
+        const re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+        return re.test(email);
+    }
+
+    function validateDob(){
+        let dob = document.getElementById('dob');
+        var errorDob = document.getElementById('error_dob');
+        if(dob.value.length == ""){
+            errorDob.innerHTML = "Vui lòng nhập ngày sinh của bạn";
+            return false;
+        }
+        else {
+            errorDob.innerHTML = "";
+            return true;
+        }
+    }
+
+    function validateCity(){
+        let city = document.getElementById('city');
+        var errorCity = document.getElementById('error_city');
+        if(city.value.length == ""){
+            errorCity.innerHTML = "Vui lòng nhập địa chỉ của bạn";
+            return false;
+        }
+        else {
+            errorCity.innerHTML = "";
+            return true;
+        } 
+    }
+
+    function validateEnducation(){
+        let cityChecked = document.querySelector('input[name="education"]:checked');
+        var errorEducation = document.getElementById('error_education');
+        if(cityChecked == null){
+            errorEducation.innerHTML = "Vui lòng nhập địa chỉ của bạn";
+            return false;
+        }
+        else {
+            errorEducation.innerHTML = "";
+            return true;
+        } 
+    }
+
+    function validateIntroduction(){
+        let introduction = document.getElementById('introduction');
+        var errorIntroduction = document.getElementById('error_introduction');
+        if(introduction.value.length == 0){
+            errorIntroduction.innerHTML = "Vui lòng nhập mô tả của bạn";
+            return false;
+        }
+        if(introduction.value.length < 30){
+            errorIntroduction.innerHTML = "Hãy giới thiệu bản thân bạn ít nhất 30 kí tự";
+            return false;
+        }
+        else {
+            errorIntroduction.innerHTML = "";
+            return true;
+        } 
+    }
+    
+    function validateForm(){
+        if(validateName() && validateEmail() && validateDob() && validateCity() && validateEnducation() && validateIntroduction()){
+           alert("Thanh cong roi day");
+            return true;
+        }
+        else {
+            return false;
+        }
+        
+    }
+</script>
