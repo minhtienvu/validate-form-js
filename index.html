@@ -84,6 +84,10 @@
     .error {
         color: red;
     }
+
+    .border-error {
+        border: 1px solid red;
+    }
 </style>
 
 <script>
@@ -92,10 +96,12 @@
         var errorName = document.getElementById('error_name');
         if(name.value.length == 0){
             errorName.innerHTML = "Vui lòng nhập tên của bạn";
+            name.classList.add('border-error');
             return false;
         }
         else if(name.value.length < 5){
             errorName.innerHTML = "Bạn phải nhập tên trên 5 ký tự";
+            name.classList.remove('border-error');
             return false;
         }
         else {
@@ -109,15 +115,17 @@
         var errorEmail = document.getElementById('error_email');
         if(email.value.length == 0){
             errorEmail.innerHTML = "Vui lòng nhập email của bạn";
+            email.classList.add('border-error');
             return false;
         }
         if(validateEmailValid(email.value)){
             errorEmail.innerHTML = '';
+            email.classList.remove('border-error');
             return true;
         }
         else {
-            
             errorEmail.innerHTML = "Bạn phải nhập đúng định dạng email";
+            email.classList.add('border-error');
             return false;
         }
     }
@@ -131,10 +139,12 @@
         let dob = document.getElementById('dob');
         var errorDob = document.getElementById('error_dob');
         if(dob.value.length == ""){
+            dob.classList.add('border-error');
             errorDob.innerHTML = "Vui lòng nhập ngày sinh của bạn";
             return false;
         }
         else {
+            dob.classList.remove('border-error');
             errorDob.innerHTML = "";
             return true;
         }
@@ -144,10 +154,12 @@
         let city = document.getElementById('city');
         var errorCity = document.getElementById('error_city');
         if(city.value.length == ""){
+            city.classList.add('border-error');
             errorCity.innerHTML = "Vui lòng nhập địa chỉ của bạn";
             return false;
         }
         else {
+            city.classList.remove('border-error');
             errorCity.innerHTML = "";
             return true;
         } 
@@ -170,14 +182,17 @@
         let introduction = document.getElementById('introduction');
         var errorIntroduction = document.getElementById('error_introduction');
         if(introduction.value.length == 0){
+            introduction.classList.add('border-error');
             errorIntroduction.innerHTML = "Vui lòng nhập mô tả của bạn";
             return false;
         }
         if(introduction.value.length < 30){
+            introduction.classList.add('border-error');
             errorIntroduction.innerHTML = "Hãy giới thiệu bản thân bạn ít nhất 30 kí tự";
             return false;
         }
         else {
+            introduction.classList.remove('border-error');
             errorIntroduction.innerHTML = "";
             return true;
         } 
